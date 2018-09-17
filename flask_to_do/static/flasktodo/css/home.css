@@ -1,0 +1,6 @@
+.no-underline>tr>td>a:hover{
+    text-decoration: none;
+}
+#line-though{
+    text-decoration: line-through;
+}

@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}About FlaToDo{% endblock %}
+{% block css %}
+	{{ url_for('static', filename='flasktodo/css/about.css')}}
+{% endblock %}
+{% block about_H_L %}active{% endblock %}
+{% block content %}
+<br>
+<div class="table-responsive">
+    <h2>This is a tiny, concise website which could manage your everyday life easily.</h2>
+</div>
+{% endblock %}
