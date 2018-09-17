@@ -4,3 +4,7 @@
 #line-though{
     text-decoration: line-through;
 }
+
+.bg-color {
+    background-color: #ff5100cc;
+}
