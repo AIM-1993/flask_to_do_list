@@ -22,17 +22,17 @@ class Todo(db.Model):
 def home():
     if request.method == "POST":
         if request.form.get('backlog') == '':
-            content = {'data_table' : Todo.query.all(), 'warning' : "Please input something"}
-            return render_template('home.html', warning=content['warning'])
+            content = {'things' : Todo.query.all(), 'warning' : "Please input something"}
+            return render_template('home.html', things=content['things'], warning=content['warning'])
         else:
             a_new_data = Todo(thing = request.form.get('backlog'), done=False)
             db.session.add(a_new_data)
             db.session.commit()
-            content = {'data_table' : Todo.query.all(), 'message': "Update Complete."}
-            return render_template('home.html', message=content['message'])
+            content = {'things' : Todo.query.all(), 'message': "Update Complete."}
+            return render_template('home.html', things=content['things'], message=content['message'])
     elif request.method == "GET":
-        content = {'list': Todo}
-        return render_template('home.html')
+        content = {'things' : Todo.query.all()}
+        return render_template('home.html', things=content['things'])
 
 
 @app.route('/about/')

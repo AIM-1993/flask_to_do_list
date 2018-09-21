@@ -36,28 +36,34 @@
 	    </tr>
 	  </thead>
 	  <tbody class="no-underline">
-	    <tr>
-	      <th scope="row">1</th>
-	      <td>working</td>
-	      <td>
-					<a class="text-info" href="{{ url_for('edit') }}">Edit</a>
-				</td>
-	      <td><a class="text-info" href="{{ url_for('mark') }}">Mark</a></td>
-				<td>
-					<form method="POST" action="{{ url_for('delete') }}">
-            <button type="submit" class="btn btn-danger btn-sm">删除</button>
-			    </form>
-				</td>
-	    </tr>
-	    <tr>
-				<th scope="row">2</th>
-	      <td>shopping</td>
-	      <td>
-					<a class="text-info" href="{{ url_for('edit') }}">Edit</a>
-				</td>
-	      <td><a class="text-info" href="{{ url_for('mark') }}">Mark</a></td>
-				<td><a class="text-info" href="{{ url_for('delete') }}">Delete</a></td>
-	    </tr>
+
+			{% for thing in things %}
+				{% if thing.done %}
+			    <tr>
+			      <th scope="row">{{ loop.index }}</th>
+			      <td id="line-though">{{ thing.thing }}</td>
+			      <td>
+							<a class="text-secondary">Edit</a>
+						</td>
+			      <td><a class="text-info" href="{{ url_for('mark') }}">Mark</a></td>
+						<td>
+							<form method="POST" action="{{ url_for('delete') }}" value="{{ csrf_token }}">
+		            <button type="submit" class="btn btn-danger btn-sm">删除</button>
+					    </form>
+						</td>
+			    </tr>
+				{% else %}
+			    <tr>
+						<th scope="row">{{ loop.index }}</th>
+			      <td>{{ thing.thing }}</td>
+			      <td>
+							<a class="text-info" href="{{ url_for('edit') }}">Edit</a>
+						</td>
+			      <td><a class="text-info" href="{{ url_for('mark') }}">Mark</a></td>
+						<td><a class="text-info" href="{{ url_for('delete') }}">Delete</a></td>
+			    </tr>
+				{% endif %}
+			{% endfor %}
 
 	  </tbody>
 	</table>
