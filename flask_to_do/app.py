@@ -52,18 +52,24 @@ def delete(things_id):
     db.session.commit()
     return redirect(url_for('home'))
 
-@app.route('/mark/')
-def mark():
-    return redirect(url_for('home'))
+
+@app.route('/mark/<things_id>', methods=['GET', 'POST'])
+def mark(things_id):
+    if request.form.get('完成状态') == '已完成':
+        a = Todo.query.get(things_id)
+        a.done = True
+        db.session.add(a)
+        db.session.commit()
+        return redirect(url_for('home'))
+    else:
+        a = Todo.query.get(things_id)
+        a.done = False
+        db.session.add(a)
+        db.session.commit()
+        return redirect(url_for('home'))
 
 
 if __name__ == '__main__':
     db.drop_all()
     db.create_all()
     app.run(debug=True)
-
-# @app.errorhandler(404)
-# def not_found(error):
-#     return make_response(return render_template('error.html'), 404)
-#     resp.headers['X-Something'] = 'A value'
-#     return resp

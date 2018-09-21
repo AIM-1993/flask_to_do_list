@@ -45,10 +45,15 @@
 			      <td>
 							<a class="text-secondary">Edit</a>
 						</td>
-			      <td><a class="text-info" href="{{ url_for('mark') }}">Mark</a></td>
+			      <td>
+							<form method="POST" action="{{ url_for('mark', things_id=thing.id) }}" value="{{ csrf_token }}">
+								<input name="完成状态" type="hidden" value="未完成">
+								<button type="submit" class="btn btn-warning btn-sm">cancel</button>
+							</form>
+			      </td>
 						<td>
 							<form method="POST" action="{{ url_for('delete', things_id=thing.id) }}" value="{{ csrf_token }}">
-		            <button type="submit" class="btn btn-danger btn-sm">删除</button>
+		            <button type="submit" class="btn btn-warning btn-sm">Delete</button>
 					    </form>
 						</td>
 			    </tr>
@@ -57,12 +62,19 @@
 						<th scope="row">{{ loop.index }}</th>
 			      <td>{{ thing.thing }}</td>
 			      <td>
-							<a class="text-info" href="{{ url_for('edit') }}">Edit</a>
+							<form method="POST" action="{{ url_for('edit', things_id=thing.id) }}" value="{{ csrf_token }}">
+								<button type="submit" class="btn btn-warning btn-sm">edit</button>
+							</form>
 						</td>
-			      <td><a class="text-info" href="{{ url_for('mark') }}">Mark</a></td>
+			      <td>
+							<form method="POST" action="{{ url_for('mark', things_id=thing.id) }}" value="{{ csrf_token }}">
+								<input name="完成状态" type="hidden" value="已完成">
+								<button type="submit" class="btn btn-warning btn-sm">mark</button>
+							</form>
+			      </td>
 						<td>
 							<form method="POST" action="{{ url_for('delete', things_id=thing.id) }}" value="{{ csrf_token }}">
-		            <button type="submit" class="btn btn-danger btn-sm">删除</button>
+		            <button type="submit" class="btn btn-warning btn-sm">Delete</button>
 					    </form></td>
 			    </tr>
 				{% endif %}
