@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request, make_response
+from flask import Flask, render_template, url_for, redirect, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 
@@ -6,7 +6,6 @@ app = Flask(__name__)
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
-
 
 
 class Todo(db.Model):
@@ -23,18 +22,14 @@ class Todo(db.Model):
 def home():
     if request.method == "POST":
         if request.form.get('backlog') == '':
-            content = {'list': Todo, 'warning': "Please input something"}
-            resp = redirect(url_for('home'))
-            resp.headers['X-Something'] = 'A value'
-            return resp
+            warning = ["Please input something"]
+            return render_template('home.html', warning=warning)
         else:
             a_new_data = Todo(thing = request.form.get('backlog'), done=False)
             db.session.add(a_new_data)
             db.session.commit()
             content = {'message': "Update Complete."}
-            resp = make_response(render_template('home.html'))
-            resp.headers['X-Something'] = 'A value'
-            return resp
+            return render_template('home.html', message=content['message'])
     elif request.method == "GET":
         content = {'list': Todo}
         return render_template('home.html')
@@ -44,17 +39,21 @@ def home():
 def about():
     return render_template('about.html')
 
+
 @app.route('/edit/', methods=['GET', 'POST'])
 def edit():
     return render_template('edit.html')
+
 
 @app.route('/delete/')
 def delete():
     return redirect(url_for('home'))
 
+
 @app.route('/mark/')
 def mark():
     return redirect(url_for('home'))
+
 
 if __name__ == '__main__':
     db.drop_all()
