@@ -15,20 +15,20 @@ class Todo(db.Model):
     done = db.Column(db.Boolean(), default=False)
 
     def __repr__(self):
-        return self.thing, self.done
+        return "{'id': %s, 'things': %s, 'done': %s}" % (self.id, self.thing, self.done)
 
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
     if request.method == "POST":
         if request.form.get('backlog') == '':
-            warning = ["Please input something"]
-            return render_template('home.html', warning=warning)
+            content = {'data_table' : Todo.query.all(), 'warning' : "Please input something"}
+            return render_template('home.html', warning=content['warning'])
         else:
             a_new_data = Todo(thing = request.form.get('backlog'), done=False)
             db.session.add(a_new_data)
             db.session.commit()
-            content = {'message': "Update Complete."}
+            content = {'data_table' : Todo.query.all(), 'message': "Update Complete."}
             return render_template('home.html', message=content['message'])
     elif request.method == "GET":
         content = {'list': Todo}
