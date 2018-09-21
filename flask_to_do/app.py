@@ -45,12 +45,12 @@ def edit():
     return render_template('edit.html')
 
 
-@app.route('/delete/<things_id>')
-def delete():
-    a = Todo.query.get(id=things_id)
+@app.route('/delete/<things_id>', methods=['GET', 'POST'])
+def delete(things_id):
+    a = Todo.query.get(things_id)
     db.session.delete(a)
+    db.session.commit()
     return redirect(url_for('home'))
-
 
 @app.route('/mark/')
 def mark():
