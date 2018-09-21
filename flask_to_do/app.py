@@ -40,9 +40,21 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/edit/', methods=['GET', 'POST'])
-def edit():
-    return render_template('edit.html')
+@app.route('/edit/<things_id>', methods=['GET', 'POST'])
+def edit(things_id):
+    if request.method == "POST":
+        if request.form.get('已修改事项') == '':
+            content = {'things' : Todo.query.all(), 'warning' : 'Please input your edit!'}
+            return render_template('edit.html', warning=content['warning'])
+        else:
+            a = Todo.query.get(things_id)
+            a.thing = request.form.get('已修改事项')
+            db.session.add(a)
+            db.session.commit()
+            return redirect(url_for('home'))
+    elif request.method == 'GET':
+        content = {'To_be_modified' : Todo.query.get(things_id)['thing'] }
+    return render_template('edit.html', To_be_modified=content['To_be_modified'])
 
 
 @app.route('/delete/<things_id>', methods=['GET', 'POST'])
