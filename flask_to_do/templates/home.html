@@ -47,7 +47,7 @@
 						</td>
 			      <td><a class="text-info" href="{{ url_for('mark') }}">Mark</a></td>
 						<td>
-							<form method="POST" action="{{ url_for('delete') }}" value="{{ csrf_token }}">
+							<form method="POST" action="{{ url_for('delete', things_id=things.id) }}" value="{{ csrf_token }}">
 		            <button type="submit" class="btn btn-danger btn-sm">删除</button>
 					    </form>
 						</td>
