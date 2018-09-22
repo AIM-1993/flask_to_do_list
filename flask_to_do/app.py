@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, flash
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 app.config.from_pyfile('config.py')
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
@@ -51,9 +52,11 @@ def edit(things_id):
             a.thing = request.form.get('已修改事项')
             db.session.add(a)
             db.session.commit()
+            flash("Editing success, check it in home page.")
             return redirect(url_for('edit', things_id=things_id))
     elif request.method == 'GET':
         content = {'To_be_modified' : Todo.query.get('thing') }
+
     return render_template('edit.html', To_be_modified=content['To_be_modified'])
 
 
