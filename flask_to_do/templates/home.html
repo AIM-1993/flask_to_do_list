@@ -62,7 +62,7 @@
 						<th scope="row">{{ loop.index }}</th>
 			      <td>{{ thing.thing }}</td>
 			      <td>
-							<form method="POST" action="{{ url_for('edit', things_id=thing.id) }}" value="{{ csrf_token }}">
+							<form method="POST" action="{{ url_for('edit', things_id=thing.id, To_be_modified=thing.thing) }}" value="{{ csrf_token }}">
 								<button type="submit" class="btn btn-warning btn-sm">edit</button>
 							</form>
 						</td>

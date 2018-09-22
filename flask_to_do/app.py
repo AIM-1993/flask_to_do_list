@@ -44,16 +44,16 @@ def about():
 def edit(things_id):
     if request.method == "POST":
         if request.form.get('已修改事项') == '':
-            content = {'things' : Todo.query.all(), 'warning' : 'Please input your edit!'}
+            content = {'things' : Todo.query.get('thing'), 'warning' : 'Please input your edit!'}
             return render_template('edit.html', warning=content['warning'])
         else:
             a = Todo.query.get(things_id)
             a.thing = request.form.get('已修改事项')
             db.session.add(a)
             db.session.commit()
-            return redirect(url_for('home'))
+            return redirect(url_for('edit', things_id=things_id))
     elif request.method == 'GET':
-        content = {'To_be_modified' : Todo.query.get(things_id)['thing'] }
+        content = {'To_be_modified' : Todo.query.get('thing') }
     return render_template('edit.html', To_be_modified=content['To_be_modified'])
 
 
