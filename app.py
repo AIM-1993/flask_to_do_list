@@ -20,7 +20,7 @@ class Todo(db.Model):
         return "{'id': %s, 'things': %s, 'done': %s}" % (self.id, self.thing, self.done)
 
 
-@app.route('/home', methods=['GET', 'POST'])
+@app.route('', methods=['GET', 'POST'])
 def home():
     if request.method == "POST":
         if request.form.get('backlog') == '':
