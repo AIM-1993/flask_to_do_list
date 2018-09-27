@@ -20,7 +20,7 @@ class Todo(db.Model):
         return "{'id': %s, 'things': %s, 'done': %s}" % (self.id, self.thing, self.done)
 
 
-@app.route('', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == "POST":
         if request.form.get('backlog') == '':
@@ -91,4 +91,3 @@ if __name__ == '__main__':
     from werkzeug.contrib.fixers import ProxyFix
     app.wsgi_app = ProxyFix(app.wsgi_app)
     app.run()
-
