@@ -86,7 +86,6 @@ def mark(things_id):
 
 
 if __name__ == '__main__':
-    db.drop_all()
     db.create_all()
     from werkzeug.contrib.fixers import ProxyFix
     app.wsgi_app = ProxyFix(app.wsgi_app)
