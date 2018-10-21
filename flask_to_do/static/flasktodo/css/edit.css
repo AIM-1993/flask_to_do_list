@@ -2,3 +2,12 @@
     margin-left: 10em;
     margin-right: 10em;
 }
+#help{
+  font-weight: 400;
+
+  font-size: large;
+
+  font-family: inherit;
+
+  font-style: italic;
+}

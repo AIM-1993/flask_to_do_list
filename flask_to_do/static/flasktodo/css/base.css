@@ -3,12 +3,13 @@
     padding-Left: 5em;
     padding-right: 5em;
     height: 2.5em;
+    background-color: #2b6091;
+    font-style: italic;
 }
-nav.input {
-    width: 39%!important;
-}
+
 main {
   font-size: 1.1em;
+  font-style: italic;
 }
 .container{
   width: 100%;
@@ -19,5 +20,8 @@ main {
   margin-top: 100px;
 }
 body {
-  background-color: #000;
+  background-color: #f1efe1;
 }
+
+.table-dark {
+  background-color: #884b2e;
